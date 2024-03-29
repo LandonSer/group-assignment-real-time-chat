@@ -1,0 +1,9 @@
+{
+    "name": "real-time-chat",
+    "version": "0.0.1",
+    "description": "The demo portion of the group assignment for real time chat",
+    "dependencies": {
+        "express": "^4.19.2",
+        "socket.io": "^4.7.5"
+    }
+}

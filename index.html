@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <base href="/">
+    <link rel="stylesheet" href="styles.css">
+    
+    <title>Real Time Chat Demo</title>
+  </head>
+  <body>
+    <h1>Real Time Chat Demo</h1>
+    <ul class="messages" id="messages"></ul>
+    <form class="form" id="form" autocomplete="off">
+      <input class="input name" id="inputName" />
+      <input class="input msg" id="inputMsg" />
+      <button class="submit">Send</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+      
+        var messages = document.getElementById('messages');
+        var form = document.getElementById('form');
+        var inputName = document.getElementById('inputName');
+        var inputMsg = document.getElementById('inputMsg');
+
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          if (inputName.value && inputMsg.value) {
+            socket.emit('chat message', inputName.value, inputMsg.value);
+            inputMsg.value = '';
+          } else {
+            alert('Please enter a name and message!')
+          }
+        });
+      
+        socket.on('chat message', function(name, msg) {
+          var item = document.createElement('li');
+          item.textContent = name+ ": " + msg;
+          messages.appendChild(item);
+          window.scrollTo(0, document.body.scrollHeight);
+        });
+      </script>
+  </body>
+</html>
